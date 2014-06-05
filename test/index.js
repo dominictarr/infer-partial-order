@@ -17,15 +17,21 @@ tape('trivial', function (t) {
 
 
 tape('2 level', function (t) {
-  var partial = infer([
+  var sequences = [
     [A,B,C,D,E],
     [B,A,D,C,E],
     [A,B,C,D,E],
-  ])
+  ]
+  var partial = infer(sequences)
 
   console.log(partial)
 
   t.deepEqual(partial, {A:[], B:[], C:[A,B], D:[A,B], E: [A,B,C,D]})
+
+  t.deepEqual(infer.canonical(partial),
+    {A:[], B:[], C:[A,B], D:[A,B], E: [C,D]})
+  t.deepEqual(infer(sequences, true),
+    {A:[], B:[], C:[A,B], D:[A,B], E: [C,D]})
 
   t.end()
 })
