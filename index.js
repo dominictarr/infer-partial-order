@@ -38,8 +38,6 @@ module.exports = function (examples, doClean) {
   examples.forEach(function (seq, i) {
     var seen = []
     seq.forEach(function (value) {
-      console.log(value, '->', order[value] || [])
-      console.log('seen', seen)
       order[value] = union(seen.slice(), order[value])
       seen.push(value)
     })
